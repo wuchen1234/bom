@@ -11,7 +11,10 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = {"zhth.bom"})
 @ServletComponentScan("zhth.bom.management.bom.handlerinterceptor")
 public class BomApplication extends SpringBootServletInitializer {
-
+	/**
+	 * 主程序
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(BomApplication.class, args);
 	}
