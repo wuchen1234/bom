@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="UTF-8">
+    <title>武汉志华台禾平台</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" th:href="@{css/font.css}">
+    <link rel="stylesheet" th:href="@{css/xadmin.css}">
+    <link rel="stylesheet" th:href="@{./css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{./css/bootstrap-table.min.css}">
+    <script type="text/javascript" th:src="@{js/jquery-3.2.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{lib/layui/layui.js}" charset="utf-8"></script>
+    <script type="text/javascript" th:src="@{js/xadmin.js}"></script>
+    <script type="text/javascript" th:src="@{js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{./js/bootstrap-table.min.js}"></script>
+    <script type="text/javascript" th:src="@{js/bootstrap-table-zh-CN.js}"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  
+  <body>
+    <div class="x-body">
+          <div class="layui-form-item">
+              <label for="L_repass" class="layui-form-label">
+              </label>
+              <button  class="layui-btn" lay-filter="add" lay-submit="">
+                  查询楼号详情
+              </button>
+              <input class="layui-input" placeholder="姓名" name="name" id="name" autocomplete="off"  >
+              <input class="layui-input" placeholder="楼号" name="louhao" id="louhao" autocomplete="off"  >
+          </div>
+        <table id="table">
+        </table>
+    </div>
+    <script>
+            $(function () {
+                    $('.layui-btn').click(function () {
+                        var name=$('#name').val();
+                        var louhao=$('#louhao').val();
+                        $.post("orderquery",{"name":name,"louhao":louhao},
+                            function(data){
+                                $('#table').bootstrapTable('destroy');
+                                $('#table').bootstrapTable({
+                                    striped: true,
+                                    //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                                    cache: false,
+                                    classes: 'table table-hover',
+                                    //是否显示分页（*）
+                                    pagination: true,
+                                    //是否启用排序
+                                    sortable: true,
+                                    sortName: 'time',
+                                    //排序方式
+                                    sortOrder: "desc",
+                                    //初始化加载第一页，默认第一页
+                                    //每页的记录行数（*）
+                                    pageSize: 10,
+                                    //可供选择的每页的行数（*）
+                                    pageList: [10, 25, 50, 100],
+                                    locale:'zh-CN',//中文支持
+                                    pagination: true,//是否开启分页（*）
+                                    pageNumber:1,//初始化加载第一页，默认第一页
+                                    pageList: [10,20,25],//可供选择的每页的行数（*）
+                                    sidePagination: "client", //分页方式：client客户端分页，server服务端分页（*）
+                                    showRefresh:true,//刷新按钮
+                                    refresh:true,
+                                    search: true,//是否显示表格搜索，此搜索是客户端搜索，不会进服务端
+                                    showColumns: true, //是否显示所有的列
+                                    height: 500,   //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                                    /* rowStyle: function (row, index) {
+                                         var style = "";
+                                         if (row.mateName=="JMGY11366") {style ='danger';}
+                                         return { classes: style }
+                                     },*/
+                                    columns: [{
+                                        field: 'id',
+                                        title: '编号',
+                                        align: 'center',
+                                        formatter: function (value, row, index) {
+                                            return index+1;}
+
+                                    }, {
+                                        field: 'person',
+                                        title: '人名',
+                                        align: 'center'
+                                    }, {
+                                        field: 'explain',
+                                        title: '楼号',
+                                        align: 'center'
+                                    },{
+                                        field:'towernum',
+                                        title:'编号',
+                                        align: 'center'
+                                    },
+                                        {
+                                            field:'time',
+                                            title:'时间',
+                                            align: 'center',
+                                        },
+                                        {
+                                            field:'serial',
+                                            title:'序列号',
+                                            align: 'center'
+                                        }
+                                        ,{
+                                            field:'remark',
+                                            title:'备注',
+                                            align: 'center'
+                                      }
+                                    ],
+                                    data:data
+                                })
+                            }, "json");
+                    });
+
+
+            })
+
+    </script>
+  </body>
+
+</html>

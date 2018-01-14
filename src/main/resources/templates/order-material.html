@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="UTF-8">
+    <title>楼料清单</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" th:href="@{./css/font.css}">
+    <link rel="stylesheet" th:href="@{./css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{./css/bootstrap-table.min.css}">
+    <link rel="stylesheet" th:href="@{./css/xadmin.css}">
+    <script type="text/javascript" th:src="@{js/jquery-3.2.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{./js/bootstrap-table.min.js}"></script>
+    <script type="text/javascript" th:src="@{js/bootstrap-table-zh-CN.js}"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+      .suggest{width:198px; background-color:#fff;position:absolute;margin:0;padding:0;border-width:1px;border-style:solid;border-color: #999;z-index:10}
+      .suggest ul{list-style:none;display:block;margin:0;padding:0}
+      .suggest ul li {padding:3px;line-height:25px;font-size: 14px;color: #777;cursor: pointer;padding:3px;}
+      .suggest ul li:hover{background-color:#e5e5e5;text-decoration: underline;}
+      .suggest strong{color:#000;}
+      #start{
+        width: 200px;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a>
+          <cite>导航元素</cite></a>
+      </span>
+      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+    </div>
+    <div class="x-body">
+      <div class="layui-row">
+        <form class="layui-from  layui-col-md12 x-so" action="execldownload" method="post">
+            <input class="layui-input" placeholder="楼栋名" name="name" id="start" autocomplete="off" required="required" >
+            <div class="layui-input-inline" id="search" style="display: none">
+             <p></p>
+          </div>
+          <button type="button" class="layui-btn" id="inquire">查询</button>
+          <button  type="submit" class="layui-btn" id="sum"><i class="layui-icon">&#xe615;导出EXECL</i></button>
+        </form>
+      </div>
+    </div>
+    <div class="suggest" id="search-suggest" style="display: none" >
+      <ul id="search-result">
+      </ul>
+    </div>
+    <table id="table">
+    </table>
+  </body>
+       <script type="text/javascript">
+                $(function () {
+                    $('#start').bind('keyup',function (event) {
+                       var search=$('#start').val();
+                        $.post(encodeURI("querybuilding?name="+search),
+                            function(data){
+                                var ait=10;
+                                (data.length<ait)?data.length:data.length=ait;
+                                var html='';
+                                for (var i=0;i<data.length;i++){
+                                    html+= '<li>'+data[i].btName+'<li>';
+                                }
+                                $("#search-result").html(html);
+                                $('#search-suggest').show().css({
+                                    top:$('.layui-input').offset().top+$('.layui-input').height(),
+                                    left:$('.layui-input').offset().left,
+                                    position:'absolute'
+                                });
+                                console.log(data[0])
+                            },"json");
+
+                    })
+                    $('#sum').click(function (){
+                        var regexp=/^[0-9_\u2E80-\u9FFF]+$/;
+                        var search=$('#start').val();
+                        if(search===""){
+                            alert("楼号不能为空")
+                            return false;
+                        }
+                        if(!regexp.test(search)){
+                            return false;
+                        }
+                    });
+                      $(document).bind("click",function () {
+                          $('#search-suggest').hide();
+                      });
+                    $(document).delegate("ul li", "click",function () {
+                        var keyword=$(this).text();
+                         var ml='<select name="p" id="select">';
+                        $.post(encodeURI("querybuilding?name="+keyword),
+                            function(data){
+                                for(var i=0;i<data[0].bomMaterialItem.length;i++){
+                                   ml+='<option value="'+data[0].bomMaterialItem[i].serialNum+'">'+data[0].bomMaterialItem[i].serialNum+"</option>"
+                                }
+                                ml+="</select>";
+                               $("#search select").remove();
+                                $("#search p").append(ml);
+                                $("#search").show();
+                            },"json");
+                         $('#start').val(keyword)
+                    });
+                    $('#inquire').click(function () {
+                        var search=$('#start').val();
+                        if(search!=""){
+                            var select=$('#select').val()
+                            $.post("materialItem", { "search": search,"select":select},
+                                function(data){
+                                     $('#table').bootstrapTable('destroy');
+                                     $('#table').bootstrapTable({
+                                         striped: true,
+                                         //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                                         cache: false,
+                                         classes: 'table table-hover',
+                                         //是否显示分页（*）
+                                         pagination: true,
+                                         //是否启用排序
+                                         sortable: false,
+                                         //排序方式
+                                         sortOrder: "asc",
+                                         //初始化加载第一页，默认第一页
+                                         //每页的记录行数（*）
+                                         pageSize: 10,
+                                         //可供选择的每页的行数（*）
+                                         pageList: [10, 25, 50, 100],
+                                         locale:'zh-CN',//中文支持
+                                         pagination: true,//是否开启分页（*）
+                                         pageNumber:1,//初始化加载第一页，默认第一页
+                                         pageList: [5,15,20],//可供选择的每页的行数（*）
+                                         sidePagination: "client", //分页方式：client客户端分页，server服务端分页（*）
+                                         showRefresh:true,//刷新按钮
+                                         refresh:true,
+                                         search: true,//是否显示表格搜索，此搜索是客户端搜索，不会进服务端
+                                         showColumns: true, //是否显示所有的列
+                                         height: 500,   //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                                        /* rowStyle: function (row, index) {
+                                             var style = "";
+                                             if (row.mateName=="JMGY11366") {style ='danger';}
+                                             return { classes: style }
+                                         },*/
+                                         columns: [{
+                                            field: 'id',
+                                            title: '编号',
+                                             align: 'center',
+                                             formatter: function (value, row, index) {
+                                                 return index+1;}
+
+                                         }, {
+                                            field: 'mateName',
+                                            title: '代码',
+                                             align: 'center'
+                                         }, {
+                                            field: 'bmiRemark',
+                                            title: '名称',
+                                             align: 'center'
+                                         },{
+                                            field:'smiNum',
+                                            title:'数量',
+                                             align: 'center'
+                                         },
+                                            {
+                                                field:'quantum',
+                                                title:'重量(kg)',
+                                                align: 'center'
+                                            }
+                                ],
+                                       data:data
+                                })
+                                }, "json");
+
+                        } else{
+                            alert("楼号不能为空")
+                        }
+                    })
+                })
+       </script>
+</html>

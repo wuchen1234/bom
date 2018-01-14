@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="UTF-8">
+    <title>物料上传页面</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon" />
+    <link rel="stylesheet" th:href="@{./css/font.css}">
+    <link rel="stylesheet" th:href="@{./css/xadmin.css}">
+    <script type="text/javascript" th:src="@{js/jquery-3.2.1.min.js}" ></script>
+    <script type="text/javascript" th:src="@{./lib/layui/layui.js}" charset="utf-8"></script>
+    <script type="text/javascript" th:src="@{./js/xadmin.js}"></script>
+    <link rel="stylesheet" th:href="@{./css/bootstrap.min.css}">
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  
+  <body>
+    <div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+       <!-- <a href="">演示</a>-->
+        <a>
+          <cite>导航元素</cite></a>
+      </span>
+      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ </i></a>
+    </div>
+    <div class="x-body">
+      <div class="layui-row">
+        <form enctype="multipart/form-data" method="post" action="materialuploading">
+          <input type="text" name="username"  hidden="hidden" th:value='${session.user.UserRemark}' placeholder="输入用户名" autocomplete="off" class="layui-input" required="required">
+          <input type="text" name="louhao"  placeholder="输入楼的编号" autocomplete="off" class="layui-input" required="required">
+          <input type="text" name="explain"  placeholder="楼号" autocomplete="off" class="layui-input" required="required">
+          <input type="textarea" name="remark"  placeholder="备注" autocomplete="off" class="layui-textarea">
+          <input type="file" name="file" class="file" />
+          <button type="submit"  name="submit" id="fileuploading" style="width: 50px"> <i class="layui-icon" style="line-height:20px">&#xe609; </i></button>
+        </form>
+      </div>
+    </div>
+    </Body>
+    <script>
+            $(function () {
+                  $("#fileuploading").click(function () {
+                      var file=$(".file")[0].value;
+                        if(file==""){
+                              alert("文件不能为空")
+                            return false;
+                        }else{
+                            return true;
+                        }
+
+                  })
+            })
+    </script>
+
+</html>
