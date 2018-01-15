@@ -272,7 +272,7 @@ public class BomMaterialServiceImpl {
             stockMaterialItem.setSmiNum(ccc.getSum());
             stockMaterialItem.setSmiTime(new Date());
             stockMaterialItemRepository.save(stockMaterialItem);
-            // System.out.println(ccc.getMaterialList().getMateCode()+"/////"+ccc.getSum());
+            //存到所需材料表中
         }
         return finbyname( name,p);
     }

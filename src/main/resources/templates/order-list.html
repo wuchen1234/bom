@@ -36,11 +36,15 @@
       <div class="layui-row">
         <form enctype="multipart/form-data" method="post" action="materialuploading">
           <input type="text" name="username"  hidden="hidden" th:value='${session.user.UserRemark}' placeholder="输入用户名" autocomplete="off" class="layui-input" required="required">
-          <input type="text" name="louhao"  placeholder="输入楼的编号" autocomplete="off" class="layui-input" required="required">
-          <input type="text" name="explain"  placeholder="楼号" autocomplete="off" class="layui-input" required="required">
+            <input type="text" name="louhao" placeholder="输入楼栋编号(0001 龙湖#1)输入、0001" autocomplete="off"
+                   class="layui-input" required="required">
+            <input type="text" name="explain" placeholder="输入楼号名(0001，龙湖#1)输入、龙湖#1" autocomplete="off"
+                   class="layui-input" required="required">
           <input type="textarea" name="remark"  placeholder="备注" autocomplete="off" class="layui-textarea">
           <input type="file" name="file" class="file" />
-          <button type="submit"  name="submit" id="fileuploading" style="width: 50px"> <i class="layui-icon" style="line-height:20px">&#xe609; </i></button>
+            <button type="submit" name="submit" id="fileuploading" style="width: 100px;height: 50px"><i
+                    class="layui-icon" style="line-height:20px">&#xe609; </i>上传清单
+            </button>
         </form>
       </div>
     </div>

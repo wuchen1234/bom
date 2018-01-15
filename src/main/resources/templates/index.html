@@ -27,9 +27,9 @@
           <li class="layui-nav-item">
             <a href="javascript:;">+新增</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-              <dd><a onclick="x_admin_show('资讯','http://www.baidu.com')"><i class="iconfont">&#xe6a2;</i>资讯</a></dd>
-              <dd><a onclick="x_admin_show('图片','http://www.baidu.com')"><i class="iconfont">&#xe6a8;</i>图片</a></dd>
-               <dd><a onclick="x_admin_show('用户','http://www.baidu.com')"><i class="iconfont">&#xe6b8;</i>用户</a></dd>
+                <!--<dd><a onclick="x_admin_show('资讯','http://www.baidu.com')"><i class="iconfont">&#xe6a2;</i>资讯</a></dd>
+                <dd><a onclick="x_admin_show('图片','http://www.baidu.com')"><i class="iconfont">&#xe6a8;</i>图片</a></dd>
+                 <dd><a onclick="x_admin_show('用户','http://www.baidu.com')"><i class="iconfont">&#xe6b8;</i>用户</a></dd>-->
             </dl>
           </li>
         </ul>
@@ -37,12 +37,12 @@
           <li class="layui-nav-item">
             <a href="javascript:;"><sapn th:text="${session.user.UserRemark}"></sapn></a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-              <dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>
+                <!--<dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>-->
               <dd><a href="./logout">切换帐号</a></dd>
               <dd><a href="./logout">退出</a></dd>
             </dl>
           </li>
-          <li class="layui-nav-item to-index"><a href="/bom">前台首页</a></li>
+            <li class="layui-nav-item to-index"><a href="./logout">退出登陆</a></li>
         </ul>
         
     </div>
@@ -74,11 +74,11 @@
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:;">
+                        <!--<a href="javascript:;">
                             <i class="iconfont">&#xe70b;</i>
                             <cite>用户管理</cite>
                             <i class="iconfont nav_right">&#xe697;</i>
-                        </a>
+                        </a>-->
                         <ul class="sub-menu">
                             <li>
                                 <a _href="user">
@@ -115,29 +115,29 @@
                     <li>
                     <a _href="order-list">
                         <i class="iconfont">&#xe6a7;</i>
-                        <cite>物料清单</cite>
+                        <cite>导入物料清单</cite>
                     </a>
                 </li >
                     <li>
                         <a _href="order-details">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>楼号详情</cite>
+                            <cite>查询楼号信息</cite>
                         </a>
                 </li >
                     <li>
                         <a _href="order-material">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>楼栋需要物料</cite>
+                            <cite>导出物料清单</cite>
                         </a>
                     </li >
                 </ul>
             </li>
             <li>
-                <a href="javascript:;">
+                <!-- <a href="javascript:;">
                     <i class="iconfont">&#xe726;</i>
                     <cite>管理员管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
-                </a>
+                </a>-->
                 <ul class="sub-menu">
                     <li>
                         <a _href="admin-list">
@@ -166,11 +166,11 @@
                 </ul>
             </li>
             <li>
-                <a href="javascript:;">
+                <!--<a href="javascript:;">
                     <i class="iconfont">&#xe6ce;</i>
                     <cite>系统统计</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
-                </a>
+                </a>-->
                 <ul class="sub-menu">
                     <li>
                         <a _href="echarts1">
