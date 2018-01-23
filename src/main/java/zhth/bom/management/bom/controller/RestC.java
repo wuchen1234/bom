@@ -92,7 +92,7 @@ public class RestC{
              if(ObjectUtils.isNotEmpty(user1)){
                  flag="1";
              }
-         }catch (Exception e){
+         } catch (Exception e) {
                 e.printStackTrace();
         }
           return  flag;
