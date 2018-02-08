@@ -73,7 +73,7 @@
                                 (data.length<ait)?data.length:data.length=ait;
                                 var html='';
                                 for (var i=0;i<data.length;i++){
-                                    html+= '<li>'+data[i].btName+'<li>';
+                                    html += '<li class="datal">' + data[i].btName + '<li>';
                                 }
                                 $("#search-result").html(html);
                                 $('#search-suggest').show().css({
@@ -99,7 +99,7 @@
                       $(document).bind("click",function () {
                           $('#search-suggest').hide();
                       });
-                    $(document).delegate("ul li", "click",function () {
+                    $(document).delegate(".datal", "click", function () {
                         var keyword=$(this).text();
                          var ml='<select name="p" id="select">';
                         $.post(encodeURI("querybuilding?name="+keyword),
