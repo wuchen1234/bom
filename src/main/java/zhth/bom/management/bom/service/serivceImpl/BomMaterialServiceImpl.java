@@ -173,10 +173,10 @@ public class BomMaterialServiceImpl {
             Boolean flag =false;
             for (ItemTemporary it: itemTempD){
                 if(notename.equals(it.getMaterialList().getMateCode())){
-                    BigDecimal bigDecimal = item.getBigDecimal();;
+                    BigDecimal bigDecimal = item.getBigDecimal();
                     bigDecimal = bigDecimal.add(item.getMaterialList().getSawKerf());
                     BigDecimal bg[];
-                    BigDecimal length = item.getMaterialList().getMateLength();;
+                    BigDecimal length = item.getMaterialList().getMateLength();
                     bg=length.divideAndRemainder(bigDecimal);
                     int sum=bg[0].intValue();
                     BigDecimal sung=bg[1];
