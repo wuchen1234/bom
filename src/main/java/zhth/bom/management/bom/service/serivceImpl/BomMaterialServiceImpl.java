@@ -105,6 +105,7 @@ public class BomMaterialServiceImpl {
                 partsList.setSnum(c.getBmNum());
                 partsListList.add(partsList);
             }else{
+                //如果之前存在的零件就合并
                     Boolean  flagT=false;
                     for (PartsList g : partsListList) {
                         if(g.getModel().equals(c.getBmRemark())){
@@ -115,6 +116,7 @@ public class BomMaterialServiceImpl {
                                break;
                         }
                     }
+                //不存在就添加在下一列
                 if(!flagT){
                     PartsList remark=partsListRepository.findByModel(c.getBmRemark());
                     if(ObjectUtils.isNotEmpty(remark)){
