@@ -51,6 +51,10 @@
             <div class="layui-input-inline" id="search" style="display: none">
              <p></p>
           </div>
+            <select name="way" id="pselect" style="width: 200px">
+                <option value="0">最大用料</option>
+                <option value="1" selected="true">最小用料</option>
+            </select>
           <button type="button" class="layui-btn" id="inquire">查询</button>
           <button  type="submit" class="layui-btn" id="sum"><i class="layui-icon">&#xe615;导出EXECL</i></button>
         </form>
@@ -117,8 +121,9 @@
                     $('#inquire').click(function () {
                         var search=$('#start').val();
                         if(search!=""){
-                            var select=$('#select').val()
-                            $.post("materialItem", { "search": search,"select":select},
+                            var select = $('#select').val();
+                            var select2 = $('#pselect').val();
+                            $.post("materialItem", {"search": search, "select": select, "way": select2},
                                 function(data){
                                      $('#table').bootstrapTable('destroy');
                                      $('#table').bootstrapTable({

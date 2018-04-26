@@ -31,6 +31,15 @@ public class StockMaterialItem implements Serializable {
     @Column(nullable = true)
     private String serialNum;//序列号
 
+    private int way;
+
+    public int getWay() {
+        return way;
+    }
+
+    public void setWay(int way) {
+        this.way = way;
+    }
 
     public StockMaterialItem() {
     }
@@ -112,6 +121,7 @@ public class StockMaterialItem implements Serializable {
                 ", bmiRemark='" + bmiRemark + '\'' +
                 ", quantum=" + quantum +
                 ", serialNum='" + serialNum + '\'' +
+                ", way=" + way +
                 '}';
     }
 }

@@ -2,6 +2,7 @@ package zhth.bom.management.bom.domian;
 
 /**
  * 物料清单类
+ * 无需创建实体，实体在存储过程中
  */
 public class BomMaterial {
 

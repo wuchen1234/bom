@@ -15,6 +15,6 @@ public interface StockMaterialItemRepository extends JpaRepository<StockMaterial
      * @param p
      * @return
      */
-    @Query("select p from StockMaterialItem p where btName=?1 and serialNum=?2")
-    List<StockMaterialItem>   findbyname(String name, String p);
+    @Query("select p from StockMaterialItem p where btName=?1 and serialNum=?2 and way=?3")
+    List<StockMaterialItem> findbyname(String name, String p, int way);
 }

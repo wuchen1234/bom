@@ -38,7 +38,7 @@ public class Swagger2 {
         return new ApiInfoBuilder()
                 .title("Spring Boot中使用Swagger2构建RESTful APIs")
                 .description("bom物料清单bom系统"+new Date())
-                .termsOfServiceUrl("http://localhost：8081/bom")
+                .termsOfServiceUrl("http://localhost：80/bom")
                 .contact("吴晨")
                 .version("1.0")
                 .build();

@@ -24,6 +24,7 @@ import zhth.bom.management.bom.service.serivceImpl.BomMaterialServiceImpl;
 import zhth.bom.management.bom.service.serivceImpl.UserServiceImpl;
 import zhth.bom.management.bom.util.change.PoiUtils;
 import zhth.bom.management.bom.util.change.SpellChenge;
+import zhth.bom.management.bom.util.change.WayConst;
 import zhth.bom.management.bom.util.common.IMBomResponse;
 
 import javax.servlet.ServletOutputStream;
@@ -152,13 +153,15 @@ public class MainController {
     }
 
     @RequestMapping(value = "execldownload")
-    public void execldownload(String name, String p , HttpServletResponse response) throws  Exception{
+    public void execldownload(String name, String p, HttpServletResponse response, int way) throws Exception {
              SpellChenge t= new SpellChenge(name);
              String g="zhth"+t.toPingying();
-             List<StockMaterialItem> bStockMaterialItemList=bomMaterialService.finbyname(g,p);
+        List<StockMaterialItem> bStockMaterialItemList = bomMaterialService.finbyname(g, p, way);
              System.out.println(bStockMaterialItemList.size());
-             if(bStockMaterialItemList.size()==0){
-                 bStockMaterialItemList=bomMaterialService.matchpart(g,p);
+        if (bStockMaterialItemList.size() == 0 && way == 0) {
+            bStockMaterialItemList = bomMaterialService.matchpart(g, p, way);
+        } else if (bStockMaterialItemList.size() == 0 && way == 1) {
+            bStockMaterialItemList = bomMaterialService.minmaterial(g, p, way);
              }
         HSSFWorkbook wb=new HSSFWorkbook();
         HSSFSheet  sheet=wb.createSheet("材料清单");

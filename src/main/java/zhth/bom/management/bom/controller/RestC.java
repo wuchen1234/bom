@@ -19,6 +19,7 @@ import zhth.bom.management.bom.service.serivceImpl.UserServiceImpl;
 import zhth.bom.management.bom.util.change.ObjectUtils;
 import zhth.bom.management.bom.util.change.Serial;
 import zhth.bom.management.bom.util.change.SpellChenge;
+import zhth.bom.management.bom.util.change.WayConst;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class RestC{
         List<BuildingTable> buildingTable=null;
         try {
             name="zhth"+name.trim();
-            System.out.println(name);
+            //System.out.println(name);
             SpellChenge toping=new  SpellChenge(name.trim());
             buildingTable= buildingTableRepository.findBybt(toping.toPingying());
           }catch (Exception e){
@@ -68,12 +69,14 @@ public class RestC{
 
     @ApiOperation(value = "查找进货材料清单", notes = "查找进货材料清单", httpMethod = "POST")
     @RequestMapping(value={"/materialItem"},method = RequestMethod.POST)
-    public String  materialItem(String search,String  select) {
+    public String materialItem(String search, String select, int way) {
         SpellChenge t = new SpellChenge(search);
         String g = "zhth"+t.toPingying();
-        List<StockMaterialItem> bStockMaterialItemList = bomMaterialService.finbyname(g.trim(), select);
-        if (bStockMaterialItemList.size() == 0) {
-            bStockMaterialItemList = bomMaterialService.matchpart(g, select);
+        List<StockMaterialItem> bStockMaterialItemList = bomMaterialService.finbyname(g.trim(), select, way);
+        if (bStockMaterialItemList.size() == 0 && way == 0) {
+            bStockMaterialItemList = bomMaterialService.matchpart(g, select, way);
+        } else if (bStockMaterialItemList.size() == 0 && way == 1) {
+            bStockMaterialItemList = bomMaterialService.minmaterial(g, select, way);
         }
         return JSONObject.toJSONString(bStockMaterialItemList);
         }

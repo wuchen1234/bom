@@ -23,6 +23,7 @@ public class PartsList implements Serializable {
     @Column(length = 20,nullable = false,unique = true)
     private String partNum;
 
+    // 零件型号
     @Column(length = 50,nullable = false,unique = true)
     private String model;
 
