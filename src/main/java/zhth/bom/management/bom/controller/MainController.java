@@ -107,7 +107,7 @@ public class MainController {
 
 
     @RequestMapping(value="/materialuploading", method = RequestMethod.POST)
-    public String  materialuploading(@RequestParam("file") MultipartFile file,String username,String louhao,String explain ,String remark){
+    public String materialuploading(@RequestParam("file") MultipartFile file, String username, String louhao, String explain, String remark) {
             String filepost=file.getOriginalFilename();
             String str=filepost.substring(filepost.lastIndexOf(".")+1,filepost.length());
             PoiUtils pu=null;
