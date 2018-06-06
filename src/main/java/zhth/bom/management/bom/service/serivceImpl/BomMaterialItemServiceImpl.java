@@ -27,7 +27,7 @@ public class BomMaterialItemServiceImpl implements BomMaterialItemService{
     }
 
     @Override
-    @Transactional
+    @Transactional()
     public IMBomResponse<BomMaterialItem> save(BomMaterialItem bomMaterialItem) {
          BuildingTable buildingTable=bomMaterialItem.getBuildingTable();
          BuildingTable buildingTable1=buildingTableService.save(buildingTable);

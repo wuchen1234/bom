@@ -296,9 +296,7 @@ public class BomMaterialServiceImpl {
         }
 
         List<ItemTemporary> itemTempB = getwithItem(itemTempA);
-
         Set<ItemTemporary> itemTempC = new HashSet<ItemTemporary>();
-
         for (ItemTemporary item : itemTempB) {
             String notename = item.getMaterialList().getMateCode();
             Boolean flag = false;

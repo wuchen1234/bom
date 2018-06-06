@@ -25,7 +25,8 @@ public class BuildingTableServiceImpl implements BuildingTableService{
            BuildingTable buildingTable1=buildingTableRepository.findByBtName(btname);
            //存在表就不创建表，不存在就创建
            if(ObjectUtils.isEmpty(buildingTable1)){
-               SpellChenge spellChenge=new SpellChenge(btname);
+               String t = btname.trim();
+               SpellChenge spellChenge = new SpellChenge(t);
                String  zhth="zhth"+spellChenge.toPingying();
                buildingTable.setBomMaterial(zhth);
                buildingTableRepository.Createtable(zhth);
@@ -33,6 +34,5 @@ public class BuildingTableServiceImpl implements BuildingTableService{
            }
            return buildingTable1;
     }
-
 
 }
